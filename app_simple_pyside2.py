@@ -1,13 +1,22 @@
-"""A simple, sample programmatic gui application in PySide2"""
+"""A simple, sample programmatic gui application, PySide2.
+
+Covers:
+    - App startup
+    - Basic layouts and widgets
+    - Basic popup dialogs
+    - Signals and slots
+"""
 
 
 import datetime
+import os.path
 import random
 import sys
 
 from PySide2.QtCore import Qt, Signal
-from PySide2.QtWidgets import (QApplication, QWidget, QVBoxLayout, QTextEdit,
-                               QPushButton, QHBoxLayout, QSplitter, QLabel, QMessageBox)
+from PySide2.QtWidgets import (QApplication, QWidget, QVBoxLayout, QTextEdit, QPushButton,
+                               QHBoxLayout, QSplitter, QLabel, QMessageBox, QFileDialog, QLineEdit, QRadioButton,
+                               QGroupBox, QCheckBox)
 
 
 class ChildWidget(QWidget):
@@ -27,7 +36,7 @@ class ChildWidget(QWidget):
         # Add a read-only text box
         child_text = QTextEdit()
         child_text.setPlainText('EMPTY')
-        child_text.setTextInteractionFlags(Qt.NoTextInteraction)
+        child_text.setTextInteractionFlags(Qt.TextSelectableByMouse)
         layout.addWidget(child_text)
         self.child_text = child_text
 
@@ -91,6 +100,69 @@ class CustomWidget(QWidget):
         # the bottom of the layout (pushes other stuff up)
         right_layout.addStretch(1)
         self.shout_btn = shout_btn
+
+        # Food preference controls
+        right_layout.addWidget(QLabel('Food Preferences'), alignment=Qt.AlignRight)
+        food_layout = QHBoxLayout()
+        food_layout.addStretch()
+        right_layout.addLayout(food_layout)
+        # ..........................
+        breakfast_cb = QCheckBox('Breakfast')
+        breakfast_cb.stateChanged.connect(self.handle_food_check)
+        food_layout.addWidget(breakfast_cb)
+        self.breakfast_cb = breakfast_cb
+        # ...........................
+        lunch_cb = QCheckBox('Lunch')
+        lunch_cb.stateChanged.connect(self.handle_food_check)
+        food_layout.addWidget(lunch_cb)
+        self.lunch_cb = lunch_cb
+        # .............................
+        dinner_cb = QCheckBox('Dinner')
+        dinner_cb.stateChanged.connect(self.handle_food_check)
+        food_layout.addWidget(dinner_cb)
+        self.dinner_cb = dinner_cb
+
+        # File picker controls
+        # .....................
+        file_pick_lbl = QLabel('Basic file picker')
+        right_layout.addWidget(file_pick_lbl, alignment=Qt.AlignRight)
+        # ...........................
+        # Put the controls together in a group box
+        file_picker_box = QGroupBox()
+        file_picker_layout = QVBoxLayout()
+        file_picker_box.setLayout(file_picker_layout)
+        right_layout.addWidget(file_picker_box)
+        # ........................
+        # Use a row/stretchable space for better button sizing
+        picker_row = QHBoxLayout()
+        picker_row.addStretch()
+        file_picker_layout.addLayout(picker_row)
+        # ................................
+        file_picker_btn = QPushButton('Pick File')
+        file_picker_btn.clicked.connect(self.handle_pick_file)
+        picker_row.addWidget(file_picker_btn)
+        # ...................................
+        file_picker_result_field = QLineEdit()
+        file_picker_result_field.setPlaceholderText('Pick a file...')
+        file_picker_result_field.setAlignment(Qt.AlignRight)
+        file_picker_result_field.setReadOnly(True)
+        file_picker_layout.addWidget(file_picker_result_field)
+        self.file_picker_result_field = file_picker_result_field
+
+        # Fruit picker controls
+        right_layout.addWidget(QLabel('Fruit picker'), alignment=Qt.AlignRight)
+        fruit_choices = QGroupBox()
+        fruit_layout = QHBoxLayout()
+        fruit_choices.setLayout(fruit_layout)
+        right_layout.addWidget(fruit_choices)
+        # ...............................
+        apple_btn = QRadioButton('Apple')
+        apple_btn.setChecked(True)
+        fruit_layout.addWidget(apple_btn)
+        banana_btn = QRadioButton('Banana')
+        fruit_layout.addWidget(banana_btn)
+        kiwi_btn = QRadioButton('Kiwi')
+        fruit_layout.addWidget(kiwi_btn)
 
         # Some controls at the bottom of the window
         lower_row = QHBoxLayout()
@@ -163,7 +235,7 @@ class CustomWidget(QWidget):
         # Run the dialog/get the result
         result = box.exec_()
 
-        # Show an info box with the result
+        # Show another info box with the result
         if result == QMessageBox.Yes:
             QMessageBox.information(
                 self, 'Shouting', "I'm shouting YAY!!"
@@ -175,6 +247,36 @@ class CustomWidget(QWidget):
         if result == QMessageBox.Cancel:
             QMessageBox.information(
                 self, 'Canceled', 'You canceled the shout'
+            )
+
+    def handle_pick_file(self):
+        filepath, filefilter = QFileDialog.getOpenFileName(self)
+
+        if filepath:
+            self.file_picker_result_field.setText(os.path.basename(filepath))
+        else:
+            self.file_picker_result_field.clear()
+
+    def handle_food_check(self, state):
+        meal_type = ''
+        if self.sender() is self.breakfast_cb:
+            meal_type = 'breakfast'
+        if self.sender() is self.lunch_cb:
+            meal_type = 'lunch'
+        if self.sender() is self.dinner_cb:
+            meal_type = 'dinner'
+
+        if state:
+            QMessageBox.information(
+                self,
+                'Meal updated!',
+                '{} will be served.'.format(meal_type.title())
+            )
+        else:
+            QMessageBox.information(
+                self,
+                'Meal updated!',
+                'Canceling {}.'.format(meal_type)
             )
 
     def handle_show_child(self):
