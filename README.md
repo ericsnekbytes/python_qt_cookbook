@@ -19,12 +19,12 @@ of the major libraries. The rest of the examples target PySide6.
 It should be easy to use any of the examples, whether you're using
 PySide6, PySide2, or PyQt5.
 
-# Before you start
+# Before You Start
 
 See the setup section below if you need help getting set up running
 the examples here.
 
-# What's covered in this cookbook project
+# What's Covered In This Cookbook Project
 
 Lightning summary/bullet points:
 - Basic app initialization and startup
@@ -46,7 +46,7 @@ its own declarative UI language called QML that can potentially make
 it easier to read and understand the layout of an application. Some
 QML samples should be coming in the future.
 
-# Things you should know
+# Things You Should Know
 
 Check back for more details later, this section is being actively
 developed.
@@ -67,11 +67,11 @@ often best to add a stretchable space in that widget's layout.
 Signals and slots are used to pass data around between different places in
 your Qt applications.
 
-# Code overview
+# Code Overview
 
 ## `app_simple_*.py` examples
 
-[IMG]
+<img width="984" alt="image" src="https://user-images.githubusercontent.com/104786633/206873672-1165fd4c-f712-4f62-a51d-b18ae0850633.png">
 
 Covered in `app_simple_*.py` modules:
 
@@ -83,7 +83,7 @@ Covered in `app_simple_*.py` modules:
 
 ## `app_table_word_pairs` example
 
-[IMG]
+<img width="678" alt="image" src="https://user-images.githubusercontent.com/104786633/206873693-3d0759b7-c1ee-476b-84cb-ffa7fee649e5.png">
 
 Covered in `app_table_word_pairs.py`:
 
@@ -99,7 +99,7 @@ if you want model/view editing features.
 
 ## `app_table_people.py` example
 
-[IMG]
+<img width="677" alt="image" src="https://user-images.githubusercontent.com/104786633/206873713-4d1a7ede-321e-4b47-aa34-310549cdb837.png">
 
 Covered in `app_table_people.py`:
 
@@ -112,7 +112,7 @@ This module displays a list of people (Person objects) with
 a variety of attributes, with different types, each of which can
 be edited.
 
-# Final thoughts
+# Final Thoughts
 
 Submit an issue to the repo if you want to suggest a change or have
 a question. If it fits with the project, odds are good it'll be
