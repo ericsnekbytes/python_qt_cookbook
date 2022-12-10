@@ -6,8 +6,9 @@ import os.path
 import random
 import sys
 
-from PySide6.QtCore import Qt, QAbstractTableModel
-from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QTableView, QLabel, QHeaderView, QTextEdit)
+from PySide6.QtCore import Qt, QAbstractTableModel, QSortFilterProxyModel
+from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QTableView, QLabel, QHeaderView, QTextEdit,
+                               QSplitter, QHBoxLayout, QLineEdit, QPushButton, QAbstractItemView)
 
 
 class WordPairModel(QAbstractTableModel):
@@ -77,6 +78,117 @@ class WordPairModel(QAbstractTableModel):
                     return "Second Word"
 
 
+class Person:
+    """Simple demo class for storing person info"""
+
+    def __init__(self, first, middle, last, age, height_mm):
+        self.first = first
+        self.middle = middle
+        self.last = last
+        self.age = age
+        self.height_mm = height_mm
+
+
+class PeopleModel(QAbstractTableModel):
+
+    FIRST_NAME = 0
+    MIDDLE_NAME = 1
+    LAST_NAME = 2
+    AGE = 3
+    HEIGHT_MM = 4
+
+    def __init__(self, user_data):
+        super().__init__()
+
+        # Store the data we're representing
+        self.model_data = user_data
+
+        # Assign numbers to Person attributes, so we can
+        # associate them with different column numbers
+        self.attrib_key = {
+            # int: ['attrib_name', 'display_name']
+            0: ['first', 'First Name'],
+            1: ['middle', 'Middle Name'],
+            2: ['last', 'Last Name'],
+            3: ['age', 'Age'],
+            4: ['height_mm', 'Height (mm)'],
+        }
+
+    def rowCount(self, parent):
+        return len(self.model_data)
+
+    def columnCount(self, parent):
+        """The attrib_key holds the columns we want to show"""
+        return len(self.attrib_key)
+
+    def data(self, index, role):
+        row = index.row()
+        col = index.column()
+
+        # Note that dicts are sorted in Py3.7+, so here
+        # we just index an ordered list of our dict items
+        if index.isValid():
+            if role == Qt.DisplayRole:
+                person = self.model_data[row]
+                attrib_name, display_val = self.attrib_key[col]
+
+                return str(getattr(person, attrib_name))
+
+        return None
+
+    def headerData(self, section, orientation, role):
+        # This is where you can name your columns, or show
+        # some other data for the column and row headers
+        if role == Qt.DisplayRole:
+            # Just return a row number for the vertical header
+            if orientation == Qt.Vertical:
+                return str(section)
+
+            # Return some column names for the horizontal header
+            if orientation == Qt.Horizontal:
+                attrib_name, display_val = self.attrib_key[section]
+
+                return display_val
+
+
+class PeopleSortFilterModel(QSortFilterProxyModel):
+    """Lets us sort/filter a PeopleModel"""
+
+    def __init__(self, user_data):
+        super().__init__()
+
+        self.model_data = user_data
+        self.setSourceModel(user_data)
+        self.filter_string = ''
+
+    def filterAcceptsRow(self, source_row, source_parent):
+        if self.filter_string:
+            index = self.model_data.index(source_row, PeopleModel.FIRST_NAME)
+            first_name = self.model_data.data(index, Qt.DisplayRole)
+
+            return True if first_name.lower().startswith(self.filter_string) else False
+
+        # If no filter, all rows are accepted
+        return True
+
+    def filterAcceptsColumn(self, source_column, source_parent):
+        return True
+
+    def set_filter_string(self, user_filter):
+        self.filter_string = user_filter
+
+        # Tell Qt to invalidate the model and re-query
+        self.beginResetModel()
+        self.endResetModel()
+
+    def lessThan(self, source_left, source_right):
+        # If you want to customize sort behavior, do the comparison logic here
+        left = self.model_data.data(source_left, Qt.DisplayRole)
+        right = self.model_data.data(source_right, Qt.DisplayRole)
+
+        return left < right
+
+
 class CustomWidget(QWidget):
 
     def __init__(self):
@@ -104,7 +216,7 @@ class CustomWidget(QWidget):
         word_model = WordPairModel(self.word_pairs)
         self.word_model = word_model
 
-        # A view of the word_associations dict
+        # A table view of the word_pairs dict
         word_table = QTableView()
         word_table.setModel(word_model)
         # Set header behaviors
@@ -118,95 +230,84 @@ class CustomWidget(QWidget):
         layout.addWidget(word_table)
         self.word_table = word_table
 
-        layout.addWidget(QTextEdit())
+        # Make a list of people, then show it in a sortable table
+        people = [
+            Person('Alice', 'Lee', 'Smith', 33, 181),
+            Person('Aaron', 'Jake', 'Bell', 29, 177),
+            Person('Bob', 'Greg', 'Candler', 24, 193),
+            Person('Ben', 'Joseph', 'Wicket', 34, 174),
+            Person('William', 'Troy', 'Ackford', 49, 207),
+            Person('Walter', 'Sam', 'Beckett', 57, 202),
+            Person('Megan', 'Rose', 'Rust', 11, 180),
+            Person('Mark', 'Charles', 'Ford', 16, 172),
+            Person('Jeff', 'Glenn', 'Teesdale', 71, 179),
+            Person('Jessica', 'Lala', 'Earl', 45, 212),
+            Person('Nancy', 'Elizabeth', 'Lemon', 40, 211),
+        ]
+        self.people = people
+
+        # Show a header for the people table area
+        layout.addWidget(QLabel('People, in a table'))
+        # ...........................................
+        # Show a filter field and button for the people table
+        people_controls = QHBoxLayout()
+        layout.addLayout(people_controls)
+        # ...............................
+        people_filter_field = QLineEdit()
+        people_filter_field.setPlaceholderText(
+            'First-name-starts-with'
+        )
+        people_controls.addWidget(people_filter_field)
+        self.people_filter_field = people_filter_field
+        # ............................................
+        people_filter_btn = QPushButton('Filter People')
+        people_filter_btn.clicked.connect(self.handle_apply_people_filter)
+        people_controls.addWidget(people_filter_btn)
+        # ..........................................
+        clear_people_filt_btn = QPushButton('Clear Filter')
+        clear_people_filt_btn.clicked.connect(self.handle_clear_people_filter)
+        people_controls.addWidget(clear_people_filt_btn)
+
+        # Make a model for our People
+        people_model = PeopleModel(people)
+        self.people_model = people_model
+        # Make a sort/filter proxy model, it enabled us to
+        # inform Qt about which items from the original model
+        # are filtered out and how they should be sorted
+        people_sort_model = PeopleSortFilterModel(people_model)
+        self.people_sort_model = people_sort_model
+
+        # A table view of our people
+        people_table = QTableView()
+        people_table.setModel(people_sort_model)
+        # Set extra table settings
+        people_table.setSortingEnabled(True)
+        # Only allow single, full-row selections
+        people_table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        people_table.setSelectionMode(QAbstractItemView.SingleSelection)
+        # Set header behaviors
+        # ....................
+        # Make the last column fit the parent layout width
+        horiz_header = people_table.horizontalHeader()
+        horiz_header.setStretchLastSection(True)
+        vert_header = word_table.verticalHeader()
+        vert_header.setSectionResizeMode(QHeaderView.Fixed)
+        # ..........................
+        layout.addWidget(people_table)
+        self.people_table = people_table
 
         # Size the widget after adding stuff to the layout
         self.resize(900, 600)
+        self.people_table.resizeColumnsToContents()
         # Make sure you show() the widget!
         self.show()
 
-    # def handle_press_time_to_text(self):
-    #     timestring = datetime.datetime.now().isoformat()
-    #     letters = [chr(codepoint) for codepoint in range(ord('A'), ord('A') + 26)]
-    #     some_rand_letters = random.choices(population=letters, k=4)
-    #
-    #     message = 'The time is: {}\nRandom letters: {}\n'.format(
-    #         timestring,
-    #         ''.join(some_rand_letters)
-    #     )
-    #     self.left_text_area.setPlainText(message)
-    #
-    # def handle_press_shout(self):
-    #     # Show a box with some shout options
-    #     box = QMessageBox()
-    #     box.setStandardButtons(
-    #         QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel
-    #     )
-    #     box.setWindowTitle('Shout Options')
-    #     box.setText('Pick a shout')
-    #     yes_btn = box.button(QMessageBox.Yes)
-    #     yes_btn.setText('Shout YAY')
-    #     no_btn = box.button(QMessageBox.No)
-    #     no_btn.setText('Shout NAW')
-    #
-    #     # Run the dialog/get the result
-    #     result = box.exec()
-    #
-    #     # Show another info box with the result
-    #     if result == QMessageBox.Yes:
-    #         QMessageBox.information(
-    #             self, 'Shouting', "I'm shouting YAY!!"
-    #         )
-    #     if result == QMessageBox.No:
-    #         QMessageBox.information(
-    #             self, 'Shouting', "I'm shouting NAW!!"
-    #         )
-    #     if result == QMessageBox.Cancel:
-    #         QMessageBox.information(
-    #             self, 'Canceled', 'You canceled the shout'
-    #         )
-    #
-    # def handle_pick_file(self):
-    #     filepath, filefilter = QFileDialog.getOpenFileName(self)
-    #
-    #     if filepath:
-    #         self.file_picker_result_field.setText(os.path.basename(filepath))
-    #     else:
-    #         self.file_picker_result_field.clear()
-    #
-    # def handle_food_check(self, state):
-    #     meal_type = ''
-    #     if self.sender() is self.breakfast_cb:
-    #         meal_type = 'breakfast'
-    #     if self.sender() is self.lunch_cb:
-    #         meal_type = 'lunch'
-    #     if self.sender() is self.dinner_cb:
-    #         meal_type = 'dinner'
-    #
-    #     if state:
-    #         QMessageBox.information(
-    #             self,
-    #             'Meal updated!',
-    #             '{} will be served.'.format(meal_type.title())
-    #         )
-    #     else:
-    #         QMessageBox.information(
-    #             self,
-    #             'Meal updated!',
-    #             'Canceling {}.'.format(meal_type)
-    #         )
-    #
-    # def handle_show_child(self):
-    #     self.child_widget.show()
-    #
-    # def handle_child_mood(self):
-    #     # Determine which button was clicked using self.sender(),
-    #     # then emit the mood_change signal with a string (signals
-    #     # are a main way of passing information around Qt)
-    #     if self.sender() is self.child_happy_btn:
-    #         self.mood_change.emit('HAPPY')
-    #     if self.sender() is self.child_confused_btn:
-    #         self.mood_change.emit('CONFUSED')
+    def handle_apply_people_filter(self):
+        self.people_sort_model.set_filter_string(self.people_filter_field.text().lower())
+
+    def handle_clear_people_filter(self):
+        self.people_filter_field.clear()
+        self.people_sort_model.set_filter_string('')
 
 
 def run_gui():
