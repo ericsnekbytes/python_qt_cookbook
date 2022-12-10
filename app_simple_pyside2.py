@@ -294,13 +294,14 @@ class CustomWidget(QWidget):
 
 def run_gui():
     """Function scoped main app entrypoint"""
-    # Start the QApplication!
+    # Initialize the QApplication!
     app = QApplication(sys.argv)
 
     # This widget shows itself (the main GUI entrypoint)
     my_widget = CustomWidget()
 
-    sys.exit(app.exec_())
+    # Run the program/start the event loop with exec()
+    sys.exit(app.exec())
 
 
 if __name__ == '__main__':
