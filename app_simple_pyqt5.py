@@ -1,10 +1,7 @@
-"""A simple, sample programmatic gui application, PySide6.
+"""Simple demo app for common Qt features.
 
-Covers:
-    - App startup
-    - Basic layouts and widgets
-    - Basic popup dialogs
-    - Signals and slots
+This demo shows basic app init and startup, custom widgets, layouts,
+commonly used standard widgets, signals and slots, and popup dialogs.
 """
 
 
@@ -15,8 +12,8 @@ import sys
 
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QTextEdit, QPushButton,
-                               QHBoxLayout, QSplitter, QLabel, QMessageBox, QFileDialog, QLineEdit, QRadioButton,
-                               QGroupBox, QCheckBox)
+                             QHBoxLayout, QSplitter, QLabel, QMessageBox, QFileDialog, QLineEdit,
+                             QRadioButton, QGroupBox, QCheckBox)
 
 
 class ChildWidget(QWidget):

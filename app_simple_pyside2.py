@@ -1,10 +1,7 @@
-"""A simple, sample programmatic gui application, PySide2.
+"""Simple demo app for common Qt features.
 
-Covers:
-    - App startup
-    - Basic layouts and widgets
-    - Basic popup dialogs
-    - Signals and slots
+This demo shows basic app init and startup, custom widgets, layouts,
+commonly used standard widgets, signals and slots, and popup dialogs.
 """
 
 
@@ -15,8 +12,8 @@ import sys
 
 from PySide2.QtCore import Qt, Signal
 from PySide2.QtWidgets import (QApplication, QWidget, QVBoxLayout, QTextEdit, QPushButton,
-                               QHBoxLayout, QSplitter, QLabel, QMessageBox, QFileDialog, QLineEdit, QRadioButton,
-                               QGroupBox, QCheckBox)
+                               QHBoxLayout, QSplitter, QLabel, QMessageBox, QFileDialog, QLineEdit,
+                               QRadioButton, QGroupBox, QCheckBox)
 
 
 class ChildWidget(QWidget):
@@ -301,7 +298,7 @@ def run_gui():
     my_widget = CustomWidget()
 
     # Run the program/start the event loop with exec()
-    sys.exit(app.exec())
+    sys.exit(app.exec_())
 
 
 if __name__ == '__main__':
