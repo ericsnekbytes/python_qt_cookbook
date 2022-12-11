@@ -55,10 +55,13 @@ developed.
 
 (This section is not finished)
 
-Qt's layout system is unique. Generally, child widgets each request space,
-and the parent widget tries to accommodate each of them. When you want to
-add spacing between widgets, or move them left/right or up/down, it's
-often best to add a stretchable space in that widget's layout.
+Qt's [layout system](https://doc.qt.io/qt-6/layout.html) is unique. Generally,
+child widgets each request space, and the parent widget tries to accommodate
+each of them. A widget uses its `sizeHint()` to tell a layout how much space
+it needs. If all the widgets in a layout get the space they need (from their
+`sizeHint()`) and there's left over space, the layout will look at the
+`sizePolicy` and `stretchFactor` on each widget to determine how much of the
+left over space they get.
 
 ### There's too much space between my widgets!
 
