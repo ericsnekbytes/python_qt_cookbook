@@ -55,11 +55,11 @@ developed.
 
 (This section is not finished)
 
-Qt's [layout system](https://doc.qt.io/qt-6/layout.html) is unique. Child
-widgets in a layout ask for space, and the layout tries to accommodate each
-of them as best it can. This can lead to some frustrating behaviors, as
-seemingly bizarre widget spacing or alignment problems can pop up if you don't
-have a good grasp of how things work.
+Qt's [layout system](https://doc.qt.io/qt-6/layout.html) is unique. Qt uses a
+collaborative layout philosophy, where child widgets in a layout ask for space,
+and the layout tries to accommodate each of them as best it can. This can lead
+to some frustrating behaviors, as seemingly bizarre widget spacing or alignment
+problems can pop up if you don't have a good grasp of how things work.
 
 Widgets can compete for space, like unruly children, so a problem with one
 widget might actually have its root cause in another competing widget in the
