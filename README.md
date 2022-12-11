@@ -69,6 +69,10 @@ your Qt applications.
 
 # Code Overview
 
+You can browse the source code files above, or clone the repository
+to download and run them yourself. See the Setup section if you need
+more details.
+
 ## `app_simple_*.py` examples
 
 <img width="984" alt="image" src="https://user-images.githubusercontent.com/104786633/206917691-29d444a6-0c43-4ac6-b837-2ad4c53459e9.png">
@@ -112,8 +116,40 @@ This module displays a list of people (Person objects) with
 a variety of attributes, with different types, each of which can
 be edited.
 
+# Setup
+
+*Full coverage of install/setup issues is not practical here, but this should
+cover the basics*
+
+As noted above, you can browse the source code files on github, or clone
+the repository to download and run them yourself.
+
+You'll need to [install Python](https://www.python.org/downloads/)
+(or [install Miniconda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html#regular-installation),
+Anaconda is not compatible with PySide6 as of this writing),
+download one of the Qt libraries, and clone or download this repository
+to run the examples yourself.
+
+To run each of the different demo modules, just `python app_table_people.py`
+(`python` followed by the name of the py file you want to run).
+
+## Regular Python Setup
+
+Once you've installed Python, you can run `pip install PySide6` to install Qt.
+If you see an error about the command not being found, you'll need to fix your
+`PATH` environment variable (if install succeeded, you may just need to close and
+reopen your terminal), or specify the full path to pip (not preferable).
+
+## Miniconda Setup
+
+Once you've installed Miniconda, you can `conda create -n appdemos pip` to
+create an environment with pip, `conda activate appdemos` to activate it, then
+`pip install PySide6` to install Qt. If you see an error about the command not
+being found, you'll need to fix your `PATH` environment variable (if install
+succeeded, you may just need to close and reopen your terminal), or specify
+the full path to the conda executable (not preferable).
+
 # Final Thoughts
 
 Submit an issue to the repo if you want to suggest a change or have
-a question. If it fits with the project, odds are good it'll be
-added in the future.
+a question or bug report.
