@@ -60,6 +60,79 @@ and the parent widget tries to accommodate each of them. When you want to
 add spacing between widgets, or move them left/right or up/down, it's
 often best to add a stretchable space in that widget's layout.
 
+### There's too much space between my widgets!
+
+<img width="344" alt="image" src="https://user-images.githubusercontent.com/104786633/206923177-c6898e00-7824-49d7-b745-8b0f62082c05.png">
+
+If you find yourself with large, unwanted space between your widgets, a good way to solve that is to add a stretchable space in the layout to push your widgets up/down or left/right.
+
+Code for the left layout:
+
+```
+  layout = QVBoxLayout()
+
+  push_a = QPushButton('Run A')
+  layout.addWidget(push_a)
+
+  push_b = QPushButton('Run B')
+  layout.addWidget(push_b)
+
+  push_c = QPushButton('Run C')
+  layout.addWidget(push_c)
+
+  push_d = QPushButton('Run D')
+  layout.addWidget(push_d)
+
+  push_e = QPushButton('Run E')
+  layout.addWidget(push_e)
+```
+
+Code for the middle layout:
+
+```
+  layout = QVBoxLayout()
+  layout.addStretch()
+
+  push_a = QPushButton('Run A')
+  layout.addWidget(push_a)
+
+  push_b = QPushButton('Run B')
+  layout.addWidget(push_b)
+
+  push_c = QPushButton('Run C')
+  layout.addWidget(push_c)
+
+  push_d = QPushButton('Run D')
+  layout.addWidget(push_d)
+
+  push_e = QPushButton('Run E')
+  layout.addWidget(push_e)
+```
+
+Code for the right layout:
+
+```
+  layout = QVBoxLayout()
+
+  push_a = QPushButton('Run A')
+  layout.addWidget(push_a)
+
+  push_b = QPushButton('Run B')
+  layout.addWidget(push_b)
+
+  push_c = QPushButton('Run C')
+  layout.addWidget(push_c)
+  layout.addStretch()
+
+  push_d = QPushButton('Run D')
+  layout.addWidget(push_d)
+
+  push_e = QPushButton('Run E')
+  layout.addWidget(push_e)
+```
+
+You're not really aligning your widgets to the top/bottom, in reality, `addStretch()` adds a `QSpacerItem` that requests/consumes extra vertical space from the layout in the example above. This reflects Qt's layout approach, where each widget tells the layout how much space it wants. The buttons above don't want any extra vertical space, but a QSpacerItem will request as much space as it can get, so it takes any extra space that's left over after the buttons take up what little vertical space they need.
+
 ## Signals and slots
 
 (This section is not finished)
