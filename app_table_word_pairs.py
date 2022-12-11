@@ -119,7 +119,7 @@ class CustomWidget(QWidget):
 
         # Set some initial properties
         layout = QVBoxLayout()
-        self.setWindowTitle('Sample tables and lists')
+        self.setWindowTitle('Basic table example')
         self.setLayout(layout)
 
         # Start defining an area that will hold a

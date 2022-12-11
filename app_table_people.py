@@ -252,7 +252,7 @@ class CustomWidget(QWidget):
 
         # Set some initial properties
         layout = QVBoxLayout()
-        self.setWindowTitle('Some people, in a table')
+        self.setWindowTitle('Editable table example')
         self.setLayout(layout)
 
         # Make a list of people, then show it in a sortable table

@@ -65,7 +65,7 @@ class CustomWidget(QWidget):
 
         # Set some initial properties
         layout = QVBoxLayout()
-        self.setWindowTitle('Cool little sample app')
+        self.setWindowTitle('Basics sample app')
         self.setLayout(layout)
 
         # Add a main area with a draggable divider
