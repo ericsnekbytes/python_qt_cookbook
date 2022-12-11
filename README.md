@@ -1,4 +1,4 @@
-# Python Qt Cookbook
+# SnekByte's Python Qt Cookbook
 
 (This doc is being actively edited, check back for updates)
 
