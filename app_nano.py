@@ -43,7 +43,7 @@ class CustomWidget(QWidget):
         lower_row.addWidget(time_to_text_btn)
 
         # Size the widget after adding stuff to the layout
-        self.resize(900, 600)
+        self.resize(750, 500)
         # Make sure you show() the widget!
         self.show()
 
