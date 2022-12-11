@@ -71,7 +71,7 @@ your Qt applications.
 
 ## `app_simple_*.py` examples
 
-<img width="984" alt="image" src="https://user-images.githubusercontent.com/104786633/206873672-1165fd4c-f712-4f62-a51d-b18ae0850633.png">
+<img width="984" alt="image" src="https://user-images.githubusercontent.com/104786633/206917691-29d444a6-0c43-4ac6-b837-2ad4c53459e9.png">
 
 Covered in `app_simple_*.py` modules:
 
@@ -83,7 +83,7 @@ Covered in `app_simple_*.py` modules:
 
 ## `app_table_word_pairs` example
 
-<img width="678" alt="image" src="https://user-images.githubusercontent.com/104786633/206873693-3d0759b7-c1ee-476b-84cb-ffa7fee649e5.png">
+<img width="678" alt="image" src="https://user-images.githubusercontent.com/104786633/206917777-3405e2f0-94ed-4893-9481-2b3b5fb560d7.png">
 
 Covered in `app_table_word_pairs.py`:
 
@@ -99,7 +99,7 @@ if you want model/view editing features.
 
 ## `app_table_people.py` example
 
-<img width="677" alt="image" src="https://user-images.githubusercontent.com/104786633/206873713-4d1a7ede-321e-4b47-aa34-310549cdb837.png">
+<img width="678" alt="image" src="https://user-images.githubusercontent.com/104786633/206917839-f3ac0821-ca77-4188-bdde-2a112dcc24b2.png">
 
 Covered in `app_table_people.py`:
 
