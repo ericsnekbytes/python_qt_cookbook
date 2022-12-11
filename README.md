@@ -116,6 +116,12 @@ This module displays a list of people (Person objects) with
 a variety of attributes, with different types, each of which can
 be edited.
 
+## `app_nano.py` example
+
+<img width="377" alt="image" src="https://user-images.githubusercontent.com/104786633/206921925-352401b3-7006-43b2-89e6-85a73ad7e581.png">
+
+This is a very tiny app skeleton.
+
 # Setup
 
 *Full coverage of install/setup issues is not practical here, but this should
