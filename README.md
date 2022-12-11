@@ -55,13 +55,22 @@ developed.
 
 (This section is not finished)
 
-Qt's [layout system](https://doc.qt.io/qt-6/layout.html) is unique. Generally,
-child widgets each request space, and the parent widget tries to accommodate
-each of them. A widget uses its `sizeHint()` to tell a layout how much space
-it needs. If all the widgets in a layout get the space they need (from their
-`sizeHint()`) and there's left over space, the layout will look at the
-`sizePolicy` and `stretchFactor` on each widget to determine how much of the
-left over space they get.
+Qt's [layout system](https://doc.qt.io/qt-6/layout.html) is unique. Child
+widgets in a layout ask for space, and the layout tries to accommodate each
+of them as best it can. This can lead to some frustrating behaviors, as
+seemingly bizarre widget spacing or alignment problems can pop up if you don't
+have a good grasp of how things work.
+
+Widgets can compete for space, like unruly children, so a problem with one
+widget might actually have its root cause in another competing widget in the
+layout. When widgets have competing goals, the layout, like a patient parent,
+will try to compromise and satisfy both of them as best it can.
+
+For example, if two widgets in a layout have a "take all available vertical space"
+behavior (if both have a vertical `sizePolicy` of `minimumExpanding`, for example),
+the layout will first try to give all children at least as much space as their
+`sizeHint()` suggests, and any leftover space will generally be split between the
+two greedy widgets.
 
 ### There's too much space between my widgets!
 
@@ -134,7 +143,7 @@ Code for the right layout:
   layout.addWidget(push_e)
 ```
 
-You're not really aligning your widgets to the top/bottom, in reality, `addStretch()` adds a `QSpacerItem` that requests/consumes extra vertical space from the layout in the example above. This reflects Qt's layout approach, where each widget tells the layout how much space it wants. The buttons above don't want any extra vertical space, but a QSpacerItem will request as much space as it can get, so it takes any extra space that's left over after the buttons take up what little vertical space they need.
+You're not really aligning your widgets to the top/bottom, in reality, `addStretch()` adds a `QSpacerItem` that requests/consumes extra vertical space from the layout in the example above. This reflects Qt's collaborative layout philosophy, where each widget tells the layout how much space it wants. The buttons above don't want any extra vertical space, but a QSpacerItem will request as much space as it can get, so it takes any extra space that's left over after the buttons take up what little vertical space they need.
 
 ## Signals and slots
 
