@@ -168,7 +168,7 @@ Covered in `app_simple_*.py` modules:
 
 ## `app_table_word_pairs` example
 
-<img width="678" alt="image" src="https://user-images.githubusercontent.com/104786633/206917777-3405e2f0-94ed-4893-9481-2b3b5fb560d7.png">
+![image](https://user-images.githubusercontent.com/104786633/209585806-1770f39e-4c06-4124-a344-bf2d9355a563.png)
 
 Covered in `app_table_word_pairs.py`:
 
