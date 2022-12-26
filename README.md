@@ -1,6 +1,6 @@
 # SnekByte's Python Qt Cookbook
 
-(This doc is being actively edited, check back for updates)
+*(This doc is being actively edited, check back for updates)*
 
 This cookbook is here to provide SIMPLE examples of how to do
 common things when making apps with Qt in Python. Qt is extremely
@@ -47,9 +47,6 @@ it easier to read and understand the layout of an application. Some
 QML samples should be coming in the future.
 
 # Things You Should Know
-
-This section aims to cover some concepts that are helpful to know, plus
-some common errors and points of confusion.
 
 ## Layouts
 
@@ -145,7 +142,7 @@ You're not really aligning your widgets to the top/bottom, in reality, `addStret
 
 ## Signals and slots
 
-(This section is not finished)
+*(This section is not finished)*
 
 Signals and slots are used to pass data around between different places in
 your Qt applications.
