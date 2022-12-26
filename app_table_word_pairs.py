@@ -16,7 +16,14 @@ from PySide6.QtWidgets import (QApplication, QWidget, QVBoxLayout, QTableView, Q
 
 
 class WordPairModel(QAbstractTableModel):
-    """Tells Qt how our word pair data corresponds to different rows/columns/cells."""
+    """Tells Qt how our word pair data corresponds to different rows/columns/cells.
+
+    From the Qt documentation (for display-only tables):
+      When subclassing QAbstractTableModel, you must implement rowCount(),
+      columnCount(), and data(). Default implementations of the index()
+      and parent() functions are provided by QAbstractTableModel.
+      Well behaved models will also implement headerData().
+    """
 
     def __init__(self, user_data):
         super().__init__()
@@ -93,14 +100,7 @@ class WordPairModel(QAbstractTableModel):
 
 
 class CustomWidget(QWidget):
-    """A widget that shows a simple table of word pairs
-
-    From the Qt documentation:
-      When subclassing QAbstractTableModel, you must implement rowCount(),
-      columnCount(), and data(). Default implementations of the index()
-      and parent() functions are provided by QAbstractTableModel.
-      Well behaved models will also implement headerData().
-    """
+    """A widget that shows a simple table of word pairs"""
 
     def __init__(self):
         super().__init__()

@@ -29,7 +29,7 @@ class Person:
 class PeopleModel(QAbstractTableModel):
     """Tells Qt how our person data corresponds to different rows/columns/cells.
 
-    From the Qt documentation:
+    From the Qt documentation (for editable tables):
       When subclassing QAbstractTableModel, you must implement rowCount(),
       columnCount(), and data(). Default implementations of the index()
       and parent() functions are provided by QAbstractTableModel.
