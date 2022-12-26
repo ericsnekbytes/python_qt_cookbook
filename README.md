@@ -226,11 +226,11 @@ class CustomWidget(QWidget):
 
         # Hold a reference to a free floating child window here
         child_widget = ChildWidget()
+        self.child_widget = child_widget
         # Connect the custom widget's mood change signal to
         # the child's handler function, so the child can react
         # to changes on the parent
         self.mood_change.connect(child_widget.handle_incoming_mood)
-        self.child_widget = child_widget
 
         # Add a 'make happy' button
         happy_btn = QPushButton('Make Happy')
