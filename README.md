@@ -145,8 +145,113 @@ You're not really aligning your widgets to the top/bottom, in reality, `addStret
 
 *(This section is not finished)*
 
-Signals and slots are used to pass data around between different places in
-your Qt applications.
+[Signals and slots](https://doc.qt.io/qt-6/signalsandslots.html) are used to
+pass data around between different places in your Qt applications. Signals are
+fired when something happens (like a button push) in your app, and slots are
+functions that get called to react and respond to them. Multiple slots can
+connect to a given signal, and signals can be connected to each other to form
+signal chains.
+
+Qt's built-in widgets provide a lot of default signals that you can connect to,
+and you can define your own signals and slots to pass your own data around in
+your application. QPushButton's `clicked` signal is probably the best example
+of a built-in signal, it gets called when a user clicks a button, as shown in
+this tiny example widget:
+
+```
+class CustomWidget(QWidget):
+    """A very simple custom widget"""
+
+    def __init__(self):
+        super().__init__()
+
+        # Set some initial properties
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        # Add a text box
+        text_area = QTextEdit()
+        layout.addWidget(text_area)
+        self.text_area = text_area
+
+        # Add a scream button
+        scream_btn = QPushButton('Scream')
+        scream_btn.clicked.connect(self.handle_scream)
+
+    def handle_scream(self):
+        self.text_area.setText('AHHH!')
+```
+
+The scream button has a `clicked` signal (since it's a 
+QPushButton), and the `connect()` method (on the clicked
+signal) hooks that signal up to the widget's `handle_scream`
+method.
+
+To use custom signals on your own widgets, you need to define a
+Signal object inside the class definition, then `connect(my_handler)`
+the signal on your widget instance to a handler function of your choice.
+See the sample below:
+
+```
+class ChildWidget(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        # Add a read-only text box
+        child_text = QTextEdit()
+        layout.addWidget(child_text)
+        self.child_text = child_text
+
+        self.show()
+
+    def handle_incoming_mood(self, mood):
+        self.child_text.setPlainText('Mood: ' + mood)
+
+
+class CustomWidget(QWidget):
+    # This is a basic custom signal
+    mood_change = Signal(str)
+
+    def __init__(self):
+        super().__init__()
+
+        # Store mood data here
+        self.mood = ''
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        # Hold a reference to a free floating child window here
+        child_widget = ChildWidget()
+        # Connect the custom widget's mood change signal to
+        # the child's handler function, so the child can react
+        # to changes on the parent
+        self.mood_change.connect(child_widget.handle_incoming_mood)
+        self.child_widget = child_widget
+
+        # Add a 'make happy' button
+        happy_btn = QPushButton('Make Happy')
+        happy_btn.clicked.connect(self.handle_happy)
+        layout.addWidget(happy_btn)
+
+        # Add a 'make confused' button
+        confused_btn = QPushButton('Make Confused')
+        confused_btn.clicked.connect(self.handle_confused)
+        layout.addWidget(confused_btn)
+
+        self.show()
+
+    def handle_happy(self):
+        self.mood = 'HAPPY'
+        self.mood_change.emit(self.mood)
+
+    def handle_confused(self):
+        self.mood = 'CONFUSED'
+        self.mood_change.emit(self.mood)
+```
 
 # Code Overview
 
