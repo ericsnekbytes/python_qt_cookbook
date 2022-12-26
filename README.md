@@ -35,11 +35,13 @@ Lightning summary/bullet points:
 - Model/view features (tables, lists, etc.)
 - Common gotchas/issues
 
-As noted above, basic app initialization and startup, custom widgets,
-layouts, and many common standard widgets and controls are covered here.
-There are also samples of the Qt model/view features, which are typically
-used to display tables and lists of data (this is QT's implementation of
-the [MVC/Model-View-Controller design pattern](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)).
+If you're looking to get a basic app up and running quickly, check the
+`app_nano.py` sample as it covers app startup and not much else. If you're
+looking for easy examples of built-in widgets, layouts and controls, check
+the `app_simple_*.py` samples. There are also samples of the Qt model/view
+features, which are typically used to display tables and lists of data
+(this is QT's implementation of the
+[MVC/Model-View-Controller design pattern](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)).
 
 Right now, the demos in this repo use the programmatic API (meaning
 you write code to define the look and logic of your app). Qt also has
