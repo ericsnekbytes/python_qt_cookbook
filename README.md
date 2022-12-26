@@ -143,8 +143,6 @@ You're not really aligning your widgets to the top/bottom, in reality, `addStret
 
 ## Signals and slots
 
-*(This section is not finished)*
-
 [Signals and slots](https://doc.qt.io/qt-6/signalsandslots.html) are used to
 pass data around between different places in your Qt applications. Signals are
 fired when something happens (like a button push) in your app, and slots are
@@ -183,14 +181,14 @@ class CustomWidget(QWidget):
 ```
 
 The scream button has a `clicked` signal (since it's a 
-QPushButton), and the `connect()` method (on the clicked
+QPushButton), and the `connect` method (on the `clicked`
 signal) hooks that signal up to the widget's `handle_scream`
 method.
 
 To use custom signals on your own widgets, you need to define a
 Signal object inside the class definition, then `connect(my_handler)`
 the signal on your widget instance to a handler function of your choice.
-See the sample below:
+See the code sample/screenshot below:
 
 ```
 class ChildWidget(QWidget):
@@ -252,6 +250,10 @@ class CustomWidget(QWidget):
         self.mood = 'CONFUSED'
         self.mood_change.emit(self.mood)
 ```
+
+Here's what that looks like:
+
+![image](https://user-images.githubusercontent.com/104786633/209587808-a00aabfc-cd90-441a-b928-3f1095b5f89b.png)
 
 # Code Overview
 
