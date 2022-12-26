@@ -48,12 +48,10 @@ QML samples should be coming in the future.
 
 # Things You Should Know
 
-Check back for more details later, this section is being actively
-developed.
+This section aims to cover some concepts that are helpful to know, plus
+some common errors and points of confusion.
 
 ## Layouts
-
-(This section is not finished)
 
 Qt's [layout system](https://doc.qt.io/qt-6/layout.html) is unique. Qt uses a
 collaborative layout philosophy, where child widgets in a layout ask for space,

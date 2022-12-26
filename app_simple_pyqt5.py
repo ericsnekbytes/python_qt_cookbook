@@ -17,7 +17,7 @@ from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QTextEdit, QPus
 
 
 class ChildWidget(QWidget):
-    """A simple child widget of the main widget"""
+    """A simple child widget of the main custom widget"""
 
     def __init__(self):
         super().__init__()
@@ -37,8 +37,8 @@ class ChildWidget(QWidget):
         layout.addWidget(child_text)
         self.child_text = child_text
 
-        # Size after laying out
-        self.resize(400, 300)
+        # Size the widget after adding stuff to the layout
+        self.resize(400, 300)  # Resize children (if needed) below this line
 
     def handle_incoming_mood(self, mood):
         """This is an example slot (a function) for mood change signals"""

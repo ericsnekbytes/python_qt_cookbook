@@ -17,7 +17,7 @@ from PySide2.QtWidgets import (QApplication, QWidget, QVBoxLayout, QTextEdit, QP
 
 
 class ChildWidget(QWidget):
-    """A simple child widget of the main widget"""
+    """A simple child widget of the main custom widget"""
 
     def __init__(self):
         super().__init__()
@@ -37,8 +37,8 @@ class ChildWidget(QWidget):
         layout.addWidget(child_text)
         self.child_text = child_text
 
-        # Size after laying out
-        self.resize(400, 300)
+        # Size the widget after adding stuff to the layout
+        self.resize(400, 300)  # Resize children (if needed) below this line
 
     def handle_incoming_mood(self, mood):
         """This is an example slot (a function) for mood change signals"""
@@ -200,7 +200,7 @@ class CustomWidget(QWidget):
         self.child_confused_btn = child_confused_btn
 
         # Size the widget after adding stuff to the layout
-        self.resize(900, 600)
+        self.resize(900, 600)  # Resize children (if needed) below this line
         primary_area.setSizes([2 * self.width() / 3, self.width() / 3])
         # Make sure you show() the widget!
         self.show()
