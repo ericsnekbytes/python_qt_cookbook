@@ -156,7 +156,7 @@ more details.
 
 ## `app_simple_*.py` examples
 
-<img width="984" alt="image" src="https://user-images.githubusercontent.com/104786633/206917691-29d444a6-0c43-4ac6-b837-2ad4c53459e9.png">
+
 
 Covered in `app_simple_*.py` modules:
 
@@ -168,7 +168,7 @@ Covered in `app_simple_*.py` modules:
 
 ## `app_table_word_pairs` example
 
-![image](https://user-images.githubusercontent.com/104786633/209585806-1770f39e-4c06-4124-a344-bf2d9355a563.png)
+<img width="678" alt="image" src="https://user-images.githubusercontent.com/104786633/209585806-1770f39e-4c06-4124-a344-bf2d9355a563.png">
 
 Covered in `app_table_word_pairs.py`:
 
