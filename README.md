@@ -14,10 +14,10 @@ some high level overviews of Qt concepts and common gotchas/issues.
 
 There are a few different Python Qt libraries (PySide, PyQt), and
 while these libraries are nearly identical, some minor differences
-exist. The app_simple examples provide working sample code for all
-of the major libraries. The rest of the examples target PySide6.
-It should be easy to use any of the examples, whether you're using
-PySide6, PySide2, or PyQt5.
+exist. The `app_simple` examples provide working sample code for all
+of the major libraries. The rest of the examples target PySide6. It
+should be easy to use or adapt any of the examples, whether you're
+using PySide6, PySide2, or PyQt5.
 
 # Before You Start
 
@@ -141,7 +141,13 @@ Code for the right layout:
   layout.addWidget(push_e)
 ```
 
-You're not really aligning your widgets to the top/bottom, in reality, `addStretch()` adds a `QSpacerItem` that requests/consumes extra vertical space from the layout in the example above. This reflects Qt's collaborative layout philosophy, where each widget tells the layout how much space it wants. The buttons above don't want any extra vertical space, but a QSpacerItem will request as much space as it can get, so it takes any extra space that's left over after the buttons take up what little vertical space they need.
+You're not really aligning your widgets to the top/bottom, in reality,
+`addStretch()` adds a `QSpacerItem` that requests/consumes extra vertical
+space from the layout in the example above. This reflects Qt's collaborative
+layout philosophy, where each widget tells the layout how much space it wants.
+The buttons above don't want any extra vertical space, but a QSpacerItem will
+request as much space as it can get, so it takes any extra space that's left
+over after the buttons take up what little vertical space they need.
 
 ## Signals and slots
 
