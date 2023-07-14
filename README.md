@@ -1,6 +1,4 @@
-# SnekByte's Python Qt Cookbook
-
-*(This doc is being actively edited, check back for updates)*
+# Snek Byte's Python Qt Cookbook
 
 This cookbook is here to provide SIMPLE examples of how to do
 common things when making apps with Qt in Python. Qt is extremely
@@ -148,6 +146,43 @@ layout philosophy, where each widget tells the layout how much space it wants.
 The buttons above don't want any extra vertical space, but a QSpacerItem will
 request as much space as it can get, so it takes any extra space that's left
 over after the buttons take up what little vertical space they need.
+
+### I can't shrink my window!
+
+![resizing_gif1](https://github.com/ericsnekbytes/python_qt_cookbook/assets/104786633/cbc0b89b-02de-4fe8-9445-d8cbd1c38b82)
+
+Sometimes you'll find that your window won't shrink. Typically this is because
+your widgets are consuming too much space and don't have a good minimum width
+(or height) set. There are several ways to fix this, but perhaps the simplest
+way is to just set a minimum width of 1 on the widget:
+
+```
+    # The top widget in the example, has a really long label with no minimum set
+    # and prevents the window from shrinking/resizing down
+    long_label = QLabel('A REALLY REALLY LONG PIECE OF TEXT NOT EVEN KIDDING YOU')
+    layout.addWidget(long_label)
+
+    # ----------------------------------------------
+
+    # The bottom widget in the example, has a really long label, AND a minimum width
+    # set that allows the window to shrink
+    better_long_label.setMinimumWidth(1)
+    better_long_label.addWidget(better_long_label)
+```
+
+### I want a specific width but don't know what to set for the height, what do I do?
+
+If you have a custom widget that you'd like to resize, but only in one dimension,
+just use the sizeHint()'s width or height in place of the value you don't care about.
+
+```
+    # Resize to a width of 400, leave the height as-is
+    self.resize(400, self.sizeHint().height())
+```
+
+It's often helpful to resize a custom widget after all of its child widgets have been
+added to its layout, so a good place to resize is often at the end of the widget's
+`__init__` function/constructor.
 
 ## Signals and slots
 
