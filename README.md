@@ -172,7 +172,7 @@ way is to just set a minimum width of 1 on the widget:
 
 In the example gif above, you can see that the lower window can shrink to less than
 the width of the long text, but it stops when it hits the width of the button, which
-is because of the button's minimumWidth value.
+is because of the button's minimumWidth.
 
 ### I want a specific width but don't know what to set for the height, what do I do?
 
