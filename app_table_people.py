@@ -264,6 +264,7 @@ class CustomWidget(QWidget):
             Person('William', 'Troy', 'Ackford', 49, 207),
             Person('Walter', 'Sam', 'Beckett', 57, 202),
             Person('Megan', 'Rose', 'Rust', 11, 180),
+            Person('Finn', 'Jake', 'Beemo', 99, 230),
             Person('Mark', 'Charles', 'Ford', 16, 172),
             Person('Jeff', 'Glenn', 'Teesdale', 71, 179),
             Person('Jessica', 'Lala', 'Earl', 45, 212),
