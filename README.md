@@ -170,6 +170,10 @@ way is to just set a minimum width of 1 on the widget:
     better_long_label.addWidget(better_long_label)
 ```
 
+In the example gif above, you can see that the lower window can shrink to less than
+the width of the long text, but it stops when it hits the width of the button, which
+is because of the button's minimumWidth value.
+
 ### I want a specific width but don't know what to set for the height, what do I do?
 
 If you have a custom widget that you'd like to resize, but only in one dimension,
